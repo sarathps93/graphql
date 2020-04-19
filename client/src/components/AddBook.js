@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { graphql } from 'react-apollo';
-import {flowRight as compose} from 'lodash';
+import { flowRight as compose } from 'lodash';
 
-import { getAuthorsQuery, addBookMutation } from '../queries/queries';
+import { getAuthorsQuery, addBookMutation, getBooksQuery } from '../queries/queries';
 
 const AddBook = (props) => {
     const [name, setName] = useState("");
@@ -28,7 +28,8 @@ const AddBook = (props) => {
                 name,
                 genre,
                 authorId: author
-            }
+            },
+            refetchQueries: [{ query: getBooksQuery }]
         })
     }
 
@@ -40,7 +41,7 @@ const AddBook = (props) => {
             </div>
             <div className="field">
                 <label>Genre:</label>
-                <input type="text" value={genre} onChange={e => setGenre(e.target.value)}/>
+                <input type="text" value={genre} onChange={e => setGenre(e.target.value)} />
             </div>
             <div className="field">
                 <label>Author:</label>
